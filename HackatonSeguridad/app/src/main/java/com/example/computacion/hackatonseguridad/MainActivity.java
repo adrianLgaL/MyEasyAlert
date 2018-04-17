@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView txtRegistro;
-    private EditText  txtCurp, txtContra;
     String login;
     int a = 0;
     private String latitud, longitud;
@@ -35,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        txtCurp = (EditText) findViewById(R.id.txtCurp);
-        txtContra = (EditText) findViewById(R.id.txtContra);
-        txtRegistro = (TextView)findViewById(R.id.txtregistro);
 
         SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
         login = preferencias.getString("sesion", "0");
@@ -50,40 +44,6 @@ public class MainActivity extends AppCompatActivity {
             locationStart();
         }
 
-
-    }
-
-    public void iniciarSesion(View view){
-        if(txtCurp.getText().toString().equals("")||txtContra.getText().toString().equals("")){
-            Toast.makeText(this, "Llenar espacios vacios", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            if(a==1){
-
-                SharedPreferences preferencias = getSharedPreferences("datos",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferencias.edit();
-                editor.putString("sesion", "1");  // si es 1, es sesión iniciada
-                editor.commit();
-
-                Intent i = new Intent(this,Menu.class);
-                i.putExtra("latitud",latitud);
-                i.putExtra("longitud",longitud);
-                startActivity(i);
-                finish();
-            }
-            else Toast.makeText(this, "Detectando ubicación, vuelva a precionar", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void registrarse(View view){
-        if(a==1) {  //  valida que long y lat estén con llenos
-            Intent i = new Intent(this, Registro.class);
-            i.putExtra("latitud", latitud);
-            i.putExtra("longitud", longitud);
-            startActivity(i);
-            finish();
-        }
-        else Toast.makeText(this, "Detectando ubicación, vuelva a presionar", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -187,14 +147,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irMenu(){
-        if (login.equals("1")){
+        if (login.equals("1")){  //  ENTRA AL MENÚ
             Intent i = new Intent(this,Menu.class);
             i.putExtra("latitud",latitud);
             i.putExtra("longitud",longitud);
             startActivity(i);
             finish();
         }
-        else Toast.makeText(this, "sesion no iniciada", Toast.LENGTH_SHORT).show();
+        else {     // ENTRA AL LOGIN
+            Intent i = new Intent(this,loguearse.class);
+            i.putExtra("latitud",latitud);
+            i.putExtra("longitud",longitud);
+            startActivity(i);
+            finish();
+        }
     }
 
 }

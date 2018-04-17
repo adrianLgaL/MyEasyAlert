@@ -42,7 +42,7 @@ public class Registro extends AppCompatActivity {
             Toast.makeText(this, "Llenar espacios vacios", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent i = new Intent(this,MainActivity.class);
+            Intent i = new Intent(this,loguearse.class);
             i.putExtra("latitud",latitud);
             i.putExtra("longitud",longitud);
             startActivity(i);

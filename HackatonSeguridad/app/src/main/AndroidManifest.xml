@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".Menu" />
         <activity android:name=".Registro" />
-        <activity android:name=".enCamino"></activity>
+        <activity android:name=".enCamino" />
+        <activity android:name=".loguearse"></activity>
     </application>
 
 </manifest>
