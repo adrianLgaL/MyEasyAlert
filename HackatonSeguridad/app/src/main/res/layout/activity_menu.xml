@@ -17,7 +17,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#FF0000"
-        android:drawableLeft="@drawable/descarga"
         android:text="Ambulancia"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

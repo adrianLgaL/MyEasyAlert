@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Toast;
+
 
 public class Menu extends AppCompatActivity {
 
@@ -15,6 +14,10 @@ public class Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Bundle bundle = getIntent().getExtras();
+        Toast.makeText(this, "latitud: "+bundle.getString("latitud"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "longitud: "+bundle.getString("longitud"), Toast.LENGTH_SHORT).show();
 
     }
 
