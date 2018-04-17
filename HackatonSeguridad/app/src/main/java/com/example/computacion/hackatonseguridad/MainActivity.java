@@ -3,6 +3,7 @@ package com.example.computacion.hackatonseguridad;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -27,6 +28,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private TextView txtRegistro;
     private EditText  txtCurp, txtContra;
+    String login;
     int a = 0;
     private String latitud, longitud;
     @Override
@@ -37,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         txtCurp = (EditText) findViewById(R.id.txtCurp);
         txtContra = (EditText) findViewById(R.id.txtContra);
         txtRegistro = (TextView)findViewById(R.id.txtregistro);
+
+        SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+        login = preferencias.getString("sesion", "0");
+        Toast.makeText(this, login, Toast.LENGTH_SHORT).show();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
@@ -53,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             if(a==1){
+
+                SharedPreferences preferencias = getSharedPreferences("datos",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencias.edit();
+                editor.putString("sesion", "1");  // si es 1, es sesión iniciada
+                editor.commit();
+
                 Intent i = new Intent(this,Menu.class);
                 i.putExtra("latitud",latitud);
                 i.putExtra("longitud",longitud);
@@ -145,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(mainActivity, "Longitud: "+longitud+"", Toast.LENGTH_SHORT).show();
                 a=1;
 
-                //irMenu(); // si ya inició seció irá directo a pedir la emergencia
+                irMenu(); // si ya inició seció irá directo a pedir la emergencia
 
             }
             this.mainActivity.setLocation(loc);
@@ -175,11 +187,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irMenu(){
-        Intent i = new Intent(this,Menu.class);
-        i.putExtra("latitud",latitud);
-        i.putExtra("longitud",longitud);
-        startActivity(i);
-        finish();
+        if (login.equals("1")){
+            Intent i = new Intent(this,Menu.class);
+            i.putExtra("latitud",latitud);
+            i.putExtra("longitud",longitud);
+            startActivity(i);
+            finish();
+        }
+        else Toast.makeText(this, "sesion no iniciada", Toast.LENGTH_SHORT).show();
     }
 
 }
