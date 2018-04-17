@@ -10,8 +10,6 @@ import android.widget.ListView;
 
 public class Menu extends AppCompatActivity {
 
-    private String[] contactos={"Ambulancia","Salvavidas","Policia","Extravio"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

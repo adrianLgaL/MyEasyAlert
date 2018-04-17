@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView txtCurp, txtContra;
+    private TextView txtCurp, txtContra, txtRegistro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtCurp = (TextView)findViewById(R.id.txtCurp);
         txtContra = (TextView)findViewById(R.id.txtContra);
-
+        txtRegistro = (TextView)findViewById(R.id.txtregistro);
 
     }
 
@@ -31,4 +31,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    public void registrarse(View view){
+        Toast.makeText(this, "Registrarse", Toast.LENGTH_SHORT).show();
+    }
+
 }
