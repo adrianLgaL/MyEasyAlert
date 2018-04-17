@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView txtCurp, txtContra, txtRegistro;
+    private TextView txtRegistro;
+    private EditText  txtCurp, txtContra;
     int a = 0;
     private String latitud, longitud;
     @Override
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtCurp = (TextView)findViewById(R.id.txtCurp);
-        txtContra = (TextView)findViewById(R.id.txtContra);
+        txtCurp = (EditText) findViewById(R.id.txtCurp);
+        txtContra = (EditText) findViewById(R.id.txtContra);
         txtRegistro = (TextView)findViewById(R.id.txtregistro);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             locationStart();
         }
 
+
     }
 
     public void iniciarSesion(View view){
@@ -49,16 +52,26 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Llenar espacios vacios", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent i = new Intent(this,Menu.class);
-            i.putExtra("latitud",latitud);
-            i.putExtra("longitud",longitud);
-            startActivity(i);
-            finish();
+            if(a==1){
+                Intent i = new Intent(this,Menu.class);
+                i.putExtra("latitud",latitud);
+                i.putExtra("longitud",longitud);
+                startActivity(i);
+                finish();
+            }
+            else Toast.makeText(this, "Detectando ubicación, vuelva a precionar", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void registrarse(View view){
-        Toast.makeText(this, "Registrarse", Toast.LENGTH_SHORT).show();
+        if(a==1) {  //  valida que long y lat estén con llenos
+            Intent i = new Intent(this, Registro.class);
+            i.putExtra("latitud", latitud);
+            i.putExtra("longitud", longitud);
+            startActivity(i);
+            finish();
+        }
+        else Toast.makeText(this, "Detectando ubicación, vuelva a presionar", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -124,13 +137,16 @@ public class MainActivity extends AppCompatActivity {
             loc.getLatitude();
             loc.getLongitude();
 
-            if(a==0){
+            if(a==0){  //  valida que se guarde solo una vez en long y la
                 latitud = String.valueOf(loc.getLatitude());
                 longitud = String.valueOf(loc.getLongitude());
 
                 Toast.makeText(mainActivity, "Latitud: "+latitud+"", Toast.LENGTH_SHORT).show();
                 Toast.makeText(mainActivity, "Longitud: "+longitud+"", Toast.LENGTH_SHORT).show();
                 a=1;
+
+                //irMenu(); // si ya inició seció irá directo a pedir la emergencia
+
             }
             this.mainActivity.setLocation(loc);
         }
@@ -158,6 +174,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void irMenu(){
+        Intent i = new Intent(this,Menu.class);
+        i.putExtra("latitud",latitud);
+        i.putExtra("longitud",longitud);
+        startActivity(i);
+        finish();
+    }
 
 }

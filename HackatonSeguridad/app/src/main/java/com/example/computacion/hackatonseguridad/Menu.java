@@ -21,9 +21,13 @@ public class Menu extends AppCompatActivity {
 
     }
 
-    public void salir(View view){
-        Intent i = new Intent(this,MainActivity.class);
+    public void ayudaSeleccionada(View view){
+        Intent i = new Intent(this,enCamino.class);
         startActivity(i);
+        finish();
+    }
+
+    public void salir(View view){
         finish();
     }
 }
