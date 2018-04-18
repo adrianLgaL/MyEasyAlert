@@ -12,7 +12,7 @@ public class Registro extends AppCompatActivity {
 
     private EditText txtNombre, txtCurp, txtContraseña, txtSeguro, txtTelefono, txtCorreo;
     private String latitud, longitud;
-    private Button btnRegistrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,6 @@ public class Registro extends AppCompatActivity {
         txtSeguro = (EditText)findViewById(R.id.txtSeguro);
         txtTelefono = (EditText)findViewById(R.id.txtTelefono);
         txtCorreo=(EditText)findViewById(R.id.txtCorreo);
-        btnRegistrar=(Button)findViewById(R.id.btnRegistrar);
 
         Bundle bundle = getIntent().getExtras();
         latitud = bundle.getString("latitud");
@@ -42,6 +41,7 @@ public class Registro extends AppCompatActivity {
             Toast.makeText(this, "Llenar espacios vacios", Toast.LENGTH_SHORT).show();
         }
         else {
+
             Intent i = new Intent(this,loguearse.class);
             i.putExtra("latitud",latitud);
             i.putExtra("longitud",longitud);

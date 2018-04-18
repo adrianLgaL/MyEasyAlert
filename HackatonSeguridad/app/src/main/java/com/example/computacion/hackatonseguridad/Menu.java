@@ -14,10 +14,16 @@ import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Menu extends AppCompatActivity {
     private String curp, latitud, longitud;
+    int horas, min, seg;
+    String tiempo, fecha;
 
     private Socket msocket;
     {
@@ -47,6 +53,25 @@ public class Menu extends AppCompatActivity {
         curp = preferencias.getString("curp","0");
         Toast.makeText(this, curp, Toast.LENGTH_SHORT).show();
 
+        // -----------------------------  CALCULA HORA ------------------------------
+        Date dt = new Date();
+        horas = dt.getHours();
+        min = dt.getMinutes();
+        seg = dt.getSeconds();
+
+        tiempo = horas+":"+min+":"+seg;
+
+        Toast.makeText(this, "hora: "+tiempo, Toast.LENGTH_SHORT).show();
+
+        //------------------------------  CALCULA FECHA  --------------------------------
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = df.format(c.getTime());
+
+        Toast.makeText(this, "fecha: "+fecha, Toast.LENGTH_SHORT).show();
+
+
     }
 
     public void pedirAmbulancia(View view)
@@ -54,8 +79,8 @@ public class Menu extends AppCompatActivity {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.curp = curp;
         ubicacion.emergencia = "ambulancia";
-        ubicacion.fecha = "d";
-        ubicacion.hora = "a";
+        ubicacion.fecha = fecha;
+        ubicacion.hora = tiempo;
         ubicacion.latitud = latitud;
         ubicacion.longitud = longitud;
         ubicacion.numeroCelular = "a";
@@ -73,8 +98,8 @@ public class Menu extends AppCompatActivity {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.curp = curp;
         ubicacion.emergencia = "bomberos";
-        ubicacion.fecha = "d";
-        ubicacion.hora = "a";
+        ubicacion.fecha = fecha;
+        ubicacion.hora = tiempo;
         ubicacion.latitud = latitud;
         ubicacion.longitud = longitud;
         ubicacion.numeroCelular = "a";
@@ -93,8 +118,8 @@ public class Menu extends AppCompatActivity {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.curp = curp;
         ubicacion.emergencia = "salvavidas";
-        ubicacion.fecha = "d";
-        ubicacion.hora = "a";
+        ubicacion.fecha = fecha;
+        ubicacion.hora = tiempo;
         ubicacion.latitud = latitud;
         ubicacion.longitud = longitud;
         ubicacion.numeroCelular = "a";
@@ -112,8 +137,8 @@ public class Menu extends AppCompatActivity {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.curp = curp;
         ubicacion.emergencia = "policia";
-        ubicacion.fecha = "d";
-        ubicacion.hora = "a";
+        ubicacion.fecha = fecha;
+        ubicacion.hora = tiempo;
         ubicacion.latitud = latitud;
         ubicacion.longitud = longitud;
         ubicacion.numeroCelular = "a";

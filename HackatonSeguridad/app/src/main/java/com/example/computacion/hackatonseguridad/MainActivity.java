@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 latitud = String.valueOf(loc.getLatitude());
                 longitud = String.valueOf(loc.getLongitude());
 
-                Toast.makeText(mainActivity, "Latitud: "+latitud+"", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mainActivity, "Longitud: "+longitud+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mainActivity, "Latitud: "+latitud+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mainActivity, "Longitud: "+longitud+"", Toast.LENGTH_SHORT).show();
                 a=1;
 
                 irMenu(); // si ya inició seció irá directo a pedir la emergencia
