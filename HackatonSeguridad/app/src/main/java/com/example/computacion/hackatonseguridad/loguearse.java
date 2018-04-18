@@ -33,7 +33,8 @@ public class loguearse extends AppCompatActivity {
         else {
             SharedPreferences preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferencias.edit();
-            editor.putString("sesion", "1");  // si es 1, es sesión iniciada
+            editor.putString("sesion", "1");  // ingresa un 1 para dar a entender que ya es es sesión iniciada
+            editor.putString("curp",txtCurp.getText().toString());
             editor.commit();
 
             Intent i = new Intent(this,Menu.class);
